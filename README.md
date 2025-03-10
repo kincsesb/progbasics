@@ -2,7 +2,16 @@
 
 **Időtartam:** 2 óra (1x15 perc szünettel)  
 **Célcsoport:** Teljesen kezdők, akik nem rendelkeznek programozási alapismeretekkel  
-[[__TOC__]]
+
+## Tartalomjegyzék
+- [I. Bevezetés – Alapok és környezet előkészítése](#i-bevezetés-–-alapok-és-környezet-előkészítése)
+- [II. Változók – Alapfogalmak és típusok](#ii-változók-–-alapfogalmak-és-típusok)
+- [III. Szünet](#iii-szünet)
+- [IV. Műveletek a változókkal](#iv-műveletek-a-változókkal)
+- [V. Git Alapok](#v-git-alapok)
+- [VI. Interaktív Gyakorlófeladatok](#vi-interaktív-gyakorlófeladatok)
+- [VII. Összefoglalás és házi feladat](#vii-összefoglalás-és-házi-feladat)
+- [VIII. Zárás](#viii-zárás)
 ---
 
 ### **Forgatókönyv**
