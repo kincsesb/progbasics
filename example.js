@@ -10,7 +10,6 @@ console.log("Kor:", age);
 console.log("Pi értéke:", pi);
 console.log("Aktív-e:", isActive);
 console.log(nullValue);
-console.log(x);
 
 // Template Literals
 console.log(`Szia, ${name}!`);
@@ -34,6 +33,12 @@ console.log("\nSzövegből szám:", num);
 let num2 = 42;
 let str2 = num2.toString();  // Számból szöveg
 console.log("Számból szöveg:", str2);
+
+// Prompt példa
+// prompt() csak böngészőben működik
+// Pl. futtasd ezt böngésző konzolban
+let username = prompt("Mi a neved?");
+console.log(`Szia, ${username}!`);
 
 // Git alapok
 // Parancsok (parancssorban futtatandóak)
