@@ -9,7 +9,7 @@
 
 ---
 
-### **I. Bevezetés – Miért JavaScript? (5 perc)**
+### **I. Bevezetés – Miért JavaScript?**
 - Miért van szükség programozásra a teszt automatizálásban?
 - Miért éppen JavaScript?
   - Könnyen tanulható, széles körben használt.
@@ -18,7 +18,7 @@
 
 ---
 
-### **II. Környezet előkészítése (10 perc)**
+### **II. Környezet előkészítése**
 - **Visual Studio Code**, **Node.js** és **Git** telepítésének ellenőrzése.
 - **Live Server** bővítmény telepítése (VS Code-ban).
 - Gyakorlati bemutató: 
@@ -26,7 +26,7 @@
 
 ---
 
-### **III. JavaScript Alapok – Változók és Típusok (30 perc)**
+### **III. JavaScript Alapok – Változók és Típusok**
 1. **Változók bemutatása**
    - `let`, `const`, `var` magyarázata.
    - Mikor használjuk őket?
@@ -48,7 +48,45 @@ console.log(nullValue);  // null
 console.log(x);          // undefined
 ```
 
-3. **Típuskonverziók bemutatása**
+---
+
+3. **Tömbök (Array) bemutatása**
+- A **tömbök** olyan változók, amelyek több értéket tudnak tárolni egyetlen változóban.
+
+**Tömb példa**
+```javascript
+let fruits = ["alma", "banán", "cseresznye"];
+console.log("Első gyümölcs:", fruits[0]);  // alma
+console.log("Összes gyümölcs:", fruits);
+
+fruits.push("narancs"); // Új elem hozzáadása
+console.log("Új lista:", fruits);
+
+fruits.pop(); // Utolsó elem eltávolítása
+console.log("Módosított lista:", fruits);
+```
+
+---
+
+4. **Objektumok (Object) bemutatása**
+- Az **objektumok** kulcs-érték párokból állnak, amelyek logikailag összetartozó adatokat tárolnak.
+
+**Objektum példa**
+```javascript
+let person = {
+    name: "Anna",
+    age: 30,
+    isActive: true
+};
+
+console.log(`Név: ${person.name}, Kor: ${person.age}, Aktív-e: ${person.isActive}`);
+person.city = "Budapest";  // Új tulajdonság hozzáadása
+console.log("Kibővített objektum:", person);
+```
+
+---
+
+5. **Típuskonverziók bemutatása**
 ```javascript
 let str = "42";
 let num = Number(str);  // Szövegből szám
@@ -59,7 +97,9 @@ let str2 = num2.toString();  // Számból szöveg
 console.log("Számból szöveg:", str2);
 ```
 
-4. **`prompt()` függvény – Felhasználói adatbekérés**
+---
+
+6. **`prompt()` függvény – Felhasználói adatbekérés**
 ```javascript
 let username = prompt("Mi a neved?");
 console.log(`Szia, ${username}!`);
@@ -69,7 +109,7 @@ console.log(`Szia, ${username}!`);
 
 ---
 
-### **IV. HTML Alapok (15 perc)**
+### **IV. HTML Alapok**
 1. **HTML felépítésének alapjai**
 2. **Gyakorlati példa – HTML szerkezet**
 ```html
@@ -102,7 +142,7 @@ button.addEventListener("click", function() {
 
 ---
 
-### **VI. Verziókezelés – Git Alapok (20 perc)**
+### **VI. Verziókezelés – Git Alapok**
 1. **Git fogalma és jelentősége**
 2. **Gyakorlati bemutató – Parancsok**
 ```bash
@@ -131,19 +171,38 @@ cat ~/.ssh/id_ed25519.pub
 
 ---
 
-### **VII. Gyakorlófeladatok és Házi feladat (30 perc)**
-1. **Feladat 1:** Írj egy programot, amely bekér egy nevet és egy életkort, majd kiírja:  
-   _"Szia, [név]! Te [kor] éves vagy."_
-
-2. **Feladat 2:** Inicializálj egy új Git repository-t, majd végezd el az alábbi műveleteket:
-   - Hozz létre egy új fájlt.
-   - Írd bele a korábban írt programot.
-   - Készíts róla commitot.
-   - Töltsd fel a GitHub-ra.
+### **VII. Gyakorlófeladatok és Házi feladat**
 
 ---
 
-### **VIII. Összefoglalás és Zárás (5 perc)**
+### **Feladat 1:**  
+✅ Írj egy programot, amely bekér egy **nevet** és egy **életkort**, majd kiírja:  
+
+---
+
+### **Feladat 2:**  
+✅ Inicializálj egy új **Git repository-t**, majd végezd el az alábbi műveleteket:  
+1. Hozz létre egy új fájlt.  
+2. Írd bele a korábban írt programot.  
+3. Készíts róla **commit**-ot.  
+4. Töltsd fel a projektet **GitHub-ra**.  
+
+---
+
+### **Feladat 3 – Bővítés: Kedvenc filmek listája**  
+✅ A programodba építsd be a következő funkciót is:
+
+1. Hozz létre egy **`movies`** nevű tömböt, amely **5 darab objektumot** tartalmaz.  
+2. Minden objektumban legyenek az alábbi tulajdonságok:  
+   - **`title`** – A film vagy sorozat címe (string).  
+   - **`director`** – A film rendezője (string).  
+   - **`releaseYear`** – A film vagy sorozat kiadási éve (number).  
+   - **`isMovie`** – Boolean érték (`true` = film, `false` = sorozat).  
+   - **`episodeCount`** – *(opcionális)* Csak akkor legyen benne, ha az `isMovie` értéke `false`.  
+
+3. Logold ki az összes film vagy sorozat részleteit a konzolban.  
+
+### **VIII. Összefoglalás és Zárás**
 - Mondd el, hogy a következő alkalommal feltételes elágazásokra és logikai műveletekre fogtok fókuszálni.
 - Bátorítsd őket, hogy bátran kísérletezzenek és gyakoroljanak a hét folyamán.
 
@@ -151,11 +210,11 @@ cat ~/.ssh/id_ed25519.pub
 
 ## **Összefoglalás – Időbeosztás**
 ✅ **Bevezetés + Környezet előkészítése** (15 perc)  
-✅ **JavaScript Alapok** (30 perc)  
+✅ **JavaScript Alapok (beleértve az Array és Object alapokat)** (40 perc)  
 ✅ **HTML Alapok** (15 perc)  
 ✅ **Szünet** (15 perc)  
 ✅ **Git Alapok** (20 perc)  
-✅ **Gyakorlófeladatok + Házi feladat** (30 perc)  
+✅ **Gyakorlófeladatok + Házi feladat** (10 perc)  
 ✅ **Összefoglalás és Zárás** (5 perc)  
 
 ---
