@@ -63,8 +63,9 @@ console.log("0 és 10 közötti véletlen szám:", Math.floor(Math.random() * 10
 // Boolean műveletek
 // ------------------------
 console.log("\n=== Boolean Műveletek ===");
-let hasLicense = true;
-let isAdult = false;
+
+const hasLicense = true;
+const isAdult = false;
 
 console.log("AND művelet (&&):", hasLicense && isAdult);  // Mindkettő igaz kell legyen
 console.log("OR művelet (||):", hasLicense || isAdult);   // Legalább egyik igaz

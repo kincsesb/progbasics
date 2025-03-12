@@ -146,7 +146,6 @@ button.addEventListener("click", function() {
 1. **Git fogalma és jelentősége**
 2. **Gyakorlati bemutató – Parancsok**
 ```bash
-git init                # Új repository létrehozása
 git status              # Repository állapotának megtekintése
 git add .               # Fájlok hozzáadása a staging area-hoz
 git commit -m "Első commit"  # Változások mentése
