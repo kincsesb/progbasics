@@ -187,8 +187,9 @@ cat ~/.ssh/id_ed25519.pub
 ✅ Inicializálj egy új **Git repository-t**, majd végezd el az alábbi műveleteket:  
 1. Hozz létre egy új fájlt.  
 2. Írd bele a korábban írt programot.  
-3. Készíts róla **commit**-ot.  
-4. Töltsd fel a projektet **GitHub-ra**.  
+3. Hozz létre egy saját branchet a Keresztneveddel!
+4. Készíts róla **commit**-ot.  
+5. Töltsd fel a projektet **GitHub-ra**.  
 
 ---
 
