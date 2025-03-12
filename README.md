@@ -1,5 +1,9 @@
 ### **README – Teszt Automatizálás Oktatás – 1. alkalom: Változók, Típusok, HTML és Git Alapok (JavaScript)**
 
+
+Bence Repository
+
+
 **Időtartam:** 2 óra (1x15 perc szünettel)  
 **Célcsoport:** Teljesen kezdők, akik nem rendelkeznek programozási alapismeretekkel  
 
