@@ -1,11 +1,7 @@
-### **README – Teszt Automatizálás Oktatás – 1. alkalom: Változók, Típusok, HTML és Git Alapok (JavaScript)**
+### Teszt Automatizálás Oktatás – 2. alkalom: `if-else` szerkezet és függvények (JavaScript)\*\*
 
-
-Bence Repository
-
-
-**Időtartam:** 2 óra (1x15 perc szünettel)  
-**Célcsoport:** Teljesen kezdők, akik nem rendelkeznek programozási alapismeretekkel  
+**Időtartam:** 2x45 perc (1x15 perc szünettel)  
+**Célcsoport:** Teljesen kezdők, akik nem rendelkeznek programozási alapismeretekkel
 
 ---
 
@@ -13,212 +9,303 @@ Bence Repository
 
 ---
 
-### **I. Bevezetés – Miért JavaScript?**
-- Miért van szükség programozásra a teszt automatizálásban?
-- Miért éppen JavaScript?
-  - Könnyen tanulható, széles körben használt.
-  - Ideális mind frontend, mind backend tesztelésre.
-  - Elterjedt eszközkészlet teszt automatizáláshoz (pl. Jest, Cypress, Playwright, WebDriverIO).
+### **I. Házi feladat megbeszélése + Ismétlő kérdéssor (20 perc)**
+
+1. **Házi feladat megvitatása**
+
+   - A korábbi feladatok átnézése.
+   - Közös kódelemzés: kiemelni a gyakori hibákat és megoldásokat.
+   - Rövid magyarázat az esetleges buktatókról.
+
+2. **Ismétlő kérdéssor**
+   - Kérdések az előző alkalom anyagából (pl. változók, típusok, string/number műveletek, tömbök, objektumok).
 
 ---
 
-### **II. Környezet előkészítése**
-- **Visual Studio Code**, **Node.js** és **Git** telepítésének ellenőrzése.
-- **Live Server** bővítmény telepítése (VS Code-ban).
-- Gyakorlati bemutató: 
-  - Hozz létre egy `index.html` és egy `example.js` fájlt.
+### **II. Bevezetés – Miért fontos az `if-else` és a függvények? (5 perc)**
+
+- Az `if-else` szerkezet segít feltételek ellenőrzésében és különböző utasítások végrehajtásában.
+- A függvények segítenek az ismétlődő kódrészeket újra felhasználhatóvá és szervezettebbé tenni.
 
 ---
 
-### **III. JavaScript Alapok – Változók és Típusok**
-1. **Változók bemutatása**
-   - `let`, `const`, `var` magyarázata.
-   - Mikor használjuk őket?
+### **III. `if-else` szerkezet – Alapok és példák (30 perc)**
 
-2. **Példák változókra**
+1. **Alapvető `if-else` szerkezet**
+
+   ```javascript
+   let age = 18;
+
+   if (age >= 18) {
+     console.log('Felnőtt vagy.');
+   } else {
+     console.log('Még kiskorú vagy.');
+   }
+   ```
+
+2. **`else if` szerkezet – Több feltétel ellenőrzése**
+
+   ```javascript
+   let temperature = 30;
+
+   if (temperature > 30) {
+     console.log('Nagyon meleg van!');
+   } else if (temperature > 20) {
+     console.log('Kellemes idő van.');
+   } else if (temperature > 10) {
+     console.log('Hűvös van.');
+   } else {
+     console.log('Nagyon hideg van.');
+   }
+   ```
+
+### **3. Logikai műveletek az `if` szerkezetben**
+
+A logikai műveletek lehetővé teszik, hogy több feltételt is ellenőrizzünk egyszerre.
+
+---
+
+### **AND (`&&`) művelet – Mindkét feltételnek igaznak kell lennie**
+
+✅ **Csak akkor hajtódik végre az `if` blokk, ha MINDKÉT feltétel igaz.**
+
 ```javascript
-let name = "Anna";      // Szöveg (string)
-let age = 30;           // Szám (number)
-const pi = 3.14159;     // Állandó érték (const)
-let isActive = true;    // Logikai érték (boolean)
-let nullValue = null;   // Null érték
-let x;                  // undefined érték
+let hasLicense = true;
+let isSober = true;
 
-console.log("Név:", name);
-console.log("Kor:", age);
-console.log("Pi értéke:", pi);
-console.log("Aktív-e:", isActive);
-console.log(nullValue);  // null
-console.log(x);          // undefined
+if (hasLicense && isSober) {
+  console.log('Vezethetsz autót.');
+} else {
+  console.log('Nem vezethetsz autót.');
+}
 ```
+
+✅ **Eredmény:** `"Vezethetsz autót."`
 
 ---
 
-3. **Tömbök (Array) bemutatása**
-- A **tömbök** olyan változók, amelyek több értéket tudnak tárolni egyetlen változóban.
+**Példa AND művelet hibás esetére:**
 
-**Tömb példa**
 ```javascript
-let fruits = ["alma", "banán", "cseresznye"];
-console.log("Első gyümölcs:", fruits[0]);  // alma
-console.log("Összes gyümölcs:", fruits);
+let hasLicense = true;
+let isSober = false;
 
-fruits.push("narancs"); // Új elem hozzáadása
-console.log("Új lista:", fruits);
-
-fruits.pop(); // Utolsó elem eltávolítása
-console.log("Módosított lista:", fruits);
+if (hasLicense && isSober) {
+  console.log('Vezethetsz autót.');
+} else {
+  console.log('Nem vezethetsz autót.');
+}
 ```
+
+❌ **Eredmény:** `"Nem vezethetsz autót."`  
+➡️ A `&&` (AND) műveletnél ha bármelyik feltétel **hamis**, a teljes feltétel `false` lesz.
 
 ---
 
-4. **Objektumok (Object) bemutatása**
-- Az **objektumok** kulcs-érték párokból állnak, amelyek logikailag összetartozó adatokat tárolnak.
+### **OR (`||`) művelet – Legalább egy feltételnek igaznak kell lennie**
 
-**Objektum példa**
+✅ **Az `if` blokk akkor is lefut, ha csak az egyik feltétel igaz.**
+
 ```javascript
-let person = {
-    name: "Anna",
-    age: 30,
-    isActive: true
-};
+let hasUmbrella = false;
+let hasRaincoat = true;
 
-console.log(`Név: ${person.name}, Kor: ${person.age}, Aktív-e: ${person.isActive}`);
-person.city = "Budapest";  // Új tulajdonság hozzáadása
-console.log("Kibővített objektum:", person);
+if (hasUmbrella || hasRaincoat) {
+  console.log('Nem ázol meg.');
+} else {
+  console.log('Meg fogsz ázni.');
+}
 ```
+
+✅ **Eredmény:** `"Nem ázol meg."`
 
 ---
 
-5. **Típuskonverziók bemutatása**
+**Példa OR művelet hibás esetére:**
+
 ```javascript
-let str = "42";
-let num = Number(str);  // Szövegből szám
-console.log("\nSzövegből szám:", num);
+let hasUmbrella = false;
+let hasRaincoat = false;
 
-let num2 = 42;
-let str2 = num2.toString();  // Számból szöveg
-console.log("Számból szöveg:", str2);
+if (hasUmbrella || hasRaincoat) {
+  console.log('Nem ázol meg.');
+} else {
+  console.log('Meg fogsz ázni.');
+}
 ```
 
----
-
-6. **`prompt()` függvény – Felhasználói adatbekérés**
-```javascript
-let username = prompt("Mi a neved?");
-console.log(`Szia, ${username}!`);
-```
-
-➡️ **Fontos:** A `prompt()` csak böngészőben működik. Ehhez használjuk a **Live Server** bővítményt.
+❌ **Eredmény:** `"Meg fogsz ázni."`  
+➡️ A `||` (OR) műveletnél csak akkor lesz a feltétel `false`, ha **mindkét feltétel hamis**.
 
 ---
 
-### **IV. HTML Alapok**
-1. **HTML felépítésének alapjai**
-2. **Gyakorlati példa – HTML szerkezet**
-```html
-<!DOCTYPE html>
-<html>
-<head>
-    <title>HTML Példa</title>
-</head>
-<body>
-    <h1>Főcím</h1>
-    <p>Ez egy bekezdés.</p>
-    <button id="myButton">Kattints ide!</button>
-</body>
-</html>
-```
+4. **`if` szerkezet rövidítése (`ternary operator`)**
 
-3. **JavaScript-tel történő manipuláció**
-```javascript
-const button = document.getElementById("myButton");
-button.textContent = "Új szöveg";
+   ```javascript
+   let score = 85;
+   let result = score >= 50 ? 'Sikeres vizsga' : 'Sikertelen vizsga';
+   console.log(result);
+   ```
 
-button.addEventListener("click", function() {
-    alert("Gomb megnyomva!");
-});
-```
+5. **Gyakorlati példa: Felhasználó adatbekérés és életkor ellenőrzés**
+   ```javascript
+   let age = prompt('Hány éves vagy?');
+   if (age >= 18) {
+     console.log('Beléphetsz.');
+   } else {
+     console.log('Sajnálom, nem léphetsz be.');
+   }
+   ```
 
 ---
 
-### **V. Szünet (15 perc)**
+### **IV. Szünet (15 perc)**
 
 ---
 
-### **VI. Verziókezelés – Git Alapok**
-1. **Git fogalma és jelentősége**
-2. **Gyakorlati bemutató – Parancsok**
-```bash
-git status              # Repository állapotának megtekintése
-git add .               # Fájlok hozzáadása a staging area-hoz
-git commit -m "Első commit"  # Változások mentése
-```
+### **V. Függvények – Alapok és példák**
 
-3. **Távoli repository kapcsolódása (GitHub)**
-```bash
-git remote add origin <URL>
-git push -u origin main
-```
+1. **Alapvető függvény létrehozása**
 
-4. **SSH kulcs létrehozása és beállítása**
-- **SSH kulcs generálása:**  
-```bash
-ssh-keygen -t ed25519 -C "youremail@example.com"
-```
-- **Kulcs hozzáadása GitHub-hoz**
-  - Másold ki a kulcsot:  
-```bash
-cat ~/.ssh/id_ed25519.pub
-```
+   ```javascript
+   function greet(name) {
+     console.log(`Szia, ${name}!`);
+   }
+
+   greet('Anna'); // Kiírja: "Szia, Anna!"
+   greet('Péter'); // Kiírja: "Szia, Péter!"
+   ```
+
+2. **Visszatérési értékkel rendelkező függvény**
+
+   ```javascript
+   function add(a, b) {
+     return a + b;
+   }
+
+   let result = add(5, 3);
+   console.log('Összeg:', result); // Kiírja: "Összeg: 8"
+   ```
+
+3. **Függvény `if-else` szerkezettel**
+
+   ```javascript
+   function checkNumber(num) {
+     if (num > 0) {
+       return 'Pozitív szám';
+     } else if (num < 0) {
+       return 'Negatív szám';
+     } else {
+       return 'Nulla';
+     }
+   }
+
+   console.log(checkNumber(10)); // Pozitív szám
+   console.log(checkNumber(-5)); // Negatív szám
+   console.log(checkNumber(0)); // Nulla
+   ```
+
+4. **Függvény több paraméterrel**
+
+   ```javascript
+   function calculateArea(width, height) {
+     return width * height;
+   }
+
+   console.log('Terület:', calculateArea(5, 10)); // Terület: 50
+   ```
+
+5. **Függvény `default` értékkel**
+
+   ```javascript
+   function greet(name = 'vendég') {
+     console.log(`Szia, ${name}!`);
+   }
+
+   greet(); // Kiírja: "Szia, vendég!"
+   greet('Anna'); // Kiírja: "Szia, Anna!"
+   ```
+
+---
+
+### **VI. Gyakorlófeladatok**
+
+✅ Írj egy függvényt, amely egy számot fogad paraméterként és visszatér:
+
+- `"Páros szám"` ha a szám páros.
+- `"Páratlan szám"` ha a szám páratlan.
+
+✅ Készíts egy függvényt, amely bekér egy nevet és egy életkort, majd visszatér az alábbi szöveggel:
+
+- `"Szia, [név]! Te [kor] éves vagy."`
+- **Tipp:** Használj template literal-t (` `).
+
+✅ Készíts egy függvényt, amely bekér egy vizsga pontszámot és visszatér az eredménnyel:
+
+- `"Kiváló"` (90 felett)
+- `"Jó"` (70–89 között)
+- `"Megfelelt"` (50–69 között)
+- `"Elégtelen"` (50 alatt)
 
 ---
 
-### **VII. Gyakorlófeladatok és Házi feladat**
+### **VII. Összefoglalás és Zárás**
+
+- Ismételd át a legfontosabb fogalmakat:  
+  ✅ `if-else` szerkezet és logikai műveletek  
+  ✅ Függvények létrehozása, paraméterezése és visszatérési értéke  
+  ✅ Gyakorlati példák megbeszélése
+
+### **VIII. Házi feladat**
 
 ---
 
-### **Feladat 1:**  
-✅ Írj egy programot, amely bekér egy **nevet** és egy **életkort**, majd kiírja:  
+### **Feladat leírás**
 
 ---
 
-### **Feladat 2:**  
-✅ Inicializálj egy új **Git repository-t**, majd végezd el az alábbi műveleteket:  
-1. Hozz létre egy új fájlt.  
-2. Írd bele a korábban írt programot.  
-3. Hozz létre egy saját branchet a Keresztneveddel!
-4. Készíts róla **commit**-ot.  
-5. Töltsd fel a projektet **GitHub-ra**.  
+### **1. Felhasználói adatbekérés (Prompt)**
+
+- Kérdezd meg a felhasználótól a nevét.
+- Kérdezd meg tőle, hogy hány terméket szeretne vásárolni.
 
 ---
 
-### **Feladat 3 – Bővítés: Kedvenc filmek listája**  
-✅ A programodba építsd be a következő funkciót is:
+### **2. Termékadatok tárolása (Object)**
 
-1. Hozz létre egy **`movies`** nevű tömböt, amely **5 darab objektumot** tartalmaz.  
-2. Minden objektumban legyenek az alábbi tulajdonságok:  
-   - **`title`** – A film vagy sorozat címe (string).  
-   - **`director`** – A film rendezője (string).  
-   - **`releaseYear`** – A film vagy sorozat kiadási éve (number).  
-   - **`isMovie`** – Boolean érték (`true` = film, `false` = sorozat).  
-   - **`episodeCount`** – *(opcionális)* Csak akkor legyen benne, ha az `isMovie` értéke `false`.  
-
-3. Logold ki az összes film vagy sorozat részleteit a konzolban.  
-
-### **VIII. Összefoglalás és Zárás**
-- Mondd el, hogy a következő alkalommal feltételes elágazásokra és logikai műveletekre fogtok fókuszálni.
-- Bátorítsd őket, hogy bátran kísérletezzenek és gyakoroljanak a hét folyamán.
+- Hozz létre egy `products` nevű objektumot, amely tartalmaz **legalább 3 terméket**.
+- Minden terméknek legyen:
+  - **`name`** – A termék neve (string)
+  - **`price`** – A termék ára (number)
+  - **`inStock`** – Boolean érték (`true` = raktáron van, `false` = nincs raktáron)
 
 ---
 
-## **Összefoglalás – Időbeosztás**
-✅ **Bevezetés + Környezet előkészítése** (15 perc)  
-✅ **JavaScript Alapok (beleértve az Array és Object alapokat)** (40 perc)  
-✅ **HTML Alapok** (15 perc)  
-✅ **Szünet** (15 perc)  
-✅ **Git Alapok** (20 perc)  
-✅ **Gyakorlófeladatok + Házi feladat** (10 perc)  
-✅ **Összefoglalás és Zárás** (5 perc)  
+### **3. Függvény készítése**
+
+- Írj egy függvényt `calculateTotal` néven, amely:
+  - Bemenetként kap egy **terméket** és egy **darabszámot**.
+  - Ha a termék **elérhető** (`inStock`), számolja ki a teljes árat.
+  - Ha a termék **nincs raktáron**, írja ki:
+  - "Sajnáljuk, a termék nincs készleten."
 
 ---
+
+### **4. Vásárlási folyamat logikája**
+
+- Ha a felhasználó **0 terméket** szeretne vásárolni, írja ki:
+- "Nincs mit számolni."
+
+---
+
+- Ha több mint **0 terméket** akar vásárolni:
+  - Kérdezze meg, hogy **melyik terméket szeretné** (pl. `"Alma"`, `"Banán"`, `"Narancs"`).
+  - Ellenőrizze, hogy a megadott termék szerepel-e a listában.
+  - Ha igen, számolja ki az árat a megadott darabszám alapján.
+
+---
+
+### **5. Végső üzenet**
+
+- Írja ki a felhasználó nevével együtt az összesítést, például:
+- "Anna, a végösszeged 3000 Ft."
