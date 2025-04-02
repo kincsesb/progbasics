@@ -12,7 +12,8 @@ console.log("Név:", name);
 console.log("Kor:", age);
 console.log("Pi értéke:", pi);
 console.log("Aktív-e:", isActive);
-console.log(nullValue);
+console.log(nullValue); 
+
 
 // ------------------------
 // String műveletek
