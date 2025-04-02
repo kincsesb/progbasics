@@ -14,7 +14,7 @@ console.log("Pi értéke:", pi);
 console.log("Aktív-e:", isActive);
 console.log(nullValue);
 
-// ------------------------alma
+// ------------------------
 // String műveletek
 // ------------------------
 console.log("\n=== String Műveletek ===");
