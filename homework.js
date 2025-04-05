@@ -57,6 +57,8 @@ Ne használj ChatGPT!
 
 ### **1. Feladat – Fegyverek listázása**
 ✅ Írj egy függvényt, amely kiírja az összes fegyver nevét a konzolra.*/
+
+//Jó lett az elnevezés és a megoldás is
 function listAllWeaponNames(weapons){
     weapons.forEach(weapon => {
         console.log(weapon.name)
@@ -68,9 +70,11 @@ listAllWeaponNames(weapons);
 
 ### **2. Feladat – Elérhető fegyverek szűrése**
 ✅ Írj egy függvényt, amely kizárólag az `isAvailable: true` értékű fegyvereket írja ki.*/
+//Jó a megoldás és a függvény elnevezése is.
 function listAvailableWeaponNames(weapons){
     weapons.forEach(weapon => {
         if(weapon.isAvailable === true){
+            //Itt hiányzik egy pontos vessző a console.log() után.
             console.log(weapon.name)
         }
     });
@@ -83,6 +87,13 @@ listAvailableWeaponNames(weapons);
 ✅ Készíts egy függvényt, amely bekér egy fegyvernevet, és megkeresi azt a listában.  
 ➡️ Ha megtalálja, írja ki a fegyver adatait.  
 ➡️ Ha nem találja meg, jelezze, hogy a fegyver nem létezik.*/
+
+
+// Ebben a kontextusban a counter redundáns. A forEach mindenképp végig megy a fegyvereken ha nem találja meg, így elég egy if ág amiben vizsgáljuk a nevet.
+// és ha match akkor ki logoljuk. Ha nem akkor else ágba mehet hogy nem szerepel a listában. Egy jó tanács:
+// Ha ilyen vizsgálat van akkor célszerű mindent mondjuk lowercase alakítani a keresett szöveget és a keresendő szöveget is. Így elkerüljük
+// a case sensitive problémákat. De amúgy szép munka működik. A try catch ág az különösen plussz pont.
+
 function searchWeaponByName(weapons, weaponName){
     let counter = 0;
     weapons.forEach(weapon => {
@@ -99,8 +110,10 @@ function searchWeaponByName(weapons, weaponName){
 }
 console.log("\n--------------------- Harmadik feladat ---------------------\n");
 try {
+    //Hiányzó pontos vessző.
     searchWeaponByName(weapons, "Desert Eagle")
 } catch (error) {
+    //Hiányzó pontos vessző.
     console.error(error)
 }
 /*---
@@ -108,9 +121,16 @@ try {
 ### **4. Feladat – Új fegyver hozzáadása**
 ✅ Készíts egy függvényt, amely egy új fegyvert ad hozzá a `weapons` tömbhöz.  
 ➡️ A függvény vegyen be egy objektumot, amely tartalmazza a fegyver nevét, típusát, kaliberét, hatótávját és elérhetőségét.*/
+
+//Kérlek ezt módosítsd hogy az objectum detailst is dinamikusan adjuk meg.
+//hint (írj egy függvényt ami returnöl egy objektumot a paraméterként kapott elemekkel feltöltve.) :)
+
+
 function addNewWeapon(weapons, weapon){
+    //Hiányzó pontos vessző.
     weapons.push(weapon)
 }
+//Hiányzó pontos vessző.
 const newWeapon = {
     name: "Hozzáadott új fegyver neve",
     type: "típusa",
@@ -118,16 +138,22 @@ const newWeapon = {
     range: "hatótolsága",
     isAvailable: false
 }
+//Hiányzó pontos vessző.
 addNewWeapon(weapons, newWeapon)
 console.log("\n--------------------- Negyedik feladat ---------------------\n");
+//Hiányzó pontos vessző.
 console.log(weapons[weapons.length-1])
 /*---
 
 ### **5. Feladat – Elérhető sniper fegyverek keresése**
 ✅ Készíts egy függvényt, amely kizárólag a `sniper` típusú fegyvereket listázza ki, amelyek elérhetők (`isAvailable: true`).*/
+
+// Szép megoldás jó az elnevezés és jól is írtad meg.
 function listAvailableSniperWeaponNames(weapons){
     weapons.forEach(weapon => {
         if(weapon.type == "sniper" && weapon.isAvailable == true)
+        //Hiányzó pontos vessző.
+        //Hiányzó kapcsos zárójel.
         console.log(weapon.name)
     });
 }
@@ -135,12 +161,17 @@ console.log("\n--------------------- Ötödik feladat ---------------------\n");
 listAvailableSniperWeaponNames(weapons)
 /*---
 
+
+//Mivel még szűkös a skill set, én a helyed megpróbálnék létrehozni egy (vagy több :) ) új listát amibe
+//elkezdeném egy feltétel szerint (vagy több feltétel :) ) belepusholni a dolgokat és végül össze concate a listát.
 ### **6. Feladat – Fegyverek rendezése kaliber szerint**
 ✅ Készíts egy függvényt, amely a fegyvereket **kaliber szerint rendezi** növekvő sorrendben.  
 ➡️ A függvény a rendezett fegyverek nevét és kaliberét írja ki.*/
 
 /*---
 
+// Megnézheted a splice metódust
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice
 ### **7. Feladat – Fegyverek törlése**
 ✅ Készíts egy függvényt, amely egy megadott nevű fegyvert töröl a listából.  
 ➡️ Ha a fegyver nem található meg, jelezze ezt a konzolon.*/
