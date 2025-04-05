@@ -1,7 +1,7 @@
-### Teszt Automatizálás Oktatás – 2. alkalom: `if-else` szerkezet és függvények (JavaScript)\*\*
+## **Teszt Automatizálás Oktatás – 3. alkalom: HTML elemek kezelése, iframe-ek, Shadow DOM és Event Listener-ek**
 
 **Időtartam:** 2x45 perc (1x15 perc szünettel)  
-**Célcsoport:** Teljesen kezdők, akik nem rendelkeznek programozási alapismeretekkel
+**Célcsoport:** Tesztelést tanulók, akik szeretnék megérteni a HTML szerkezetet és annak tesztelési szempontjait  
 
 ---
 
@@ -9,303 +9,149 @@
 
 ---
 
-### **I. Házi feladat megbeszélése + Ismétlő kérdéssor (20 perc)**
+### **I. Bevezetés – Miért fontos megérteni a HTML-t teszteléskor? (10 perc)**
 
-1. **Házi feladat megvitatása**
+A HTML alapvető elemeinek és azok viselkedésének ismerete kulcsfontosságú a tesztelés során. Néhány példa, hogy miért:
 
-   - A korábbi feladatok átnézése.
-   - Közös kódelemzés: kiemelni a gyakori hibákat és megoldásokat.
-   - Rövid magyarázat az esetleges buktatókról.
-
-2. **Ismétlő kérdéssor**
-   - Kérdések az előző alkalom anyagából (pl. változók, típusok, string/number műveletek, tömbök, objektumok).
+✅ Egyes elemek nehezen érhetők el (pl. Shadow DOM, Iframe-ek).  
+✅ Stabil szelektorok használata kiemelten fontos az automatizált tesztelés során.  
+✅ Az eseménykezelések és a DOM manipuláció hibaforrások lehetnek.  
 
 ---
 
-### **II. Bevezetés – Miért fontos az `if-else` és a függvények? (5 perc)**
+### **II. HTML elemek alapjai (20 perc)**
 
-- Az `if-else` szerkezet segít feltételek ellenőrzésében és különböző utasítások végrehajtásában.
-- A függvények segítenek az ismétlődő kódrészeket újra felhasználhatóvá és szervezettebbé tenni.
+#### **1. HTML alapok és fontos attribútumok tesztelés szempontjából**
+- **`id`** – Egyedi azonosító, amely segít könnyen kiválasztani egy elemet.
+- **`class`** – Stílus és több elem azonosítására alkalmas.
+- **`data-*` attribútumok (pl. `test-key`)** – Teszteléshez stabil szelektor.
+- **`innerText`** – Az elem szöveges tartalma.
+- **`textContent`** – Hasonló az `innerText`-hez, de megőrzi a rejtett szövegeket is.
+- **`innerHTML`** – Az elem HTML tartalmát adja vissza.
 
----
-
-### **III. `if-else` szerkezet – Alapok és példák (30 perc)**
-
-1. **Alapvető `if-else` szerkezet**
-
-   ```javascript
-   let age = 18;
-
-   if (age >= 18) {
-     console.log('Felnőtt vagy.');
-   } else {
-     console.log('Még kiskorú vagy.');
-   }
-   ```
-
-2. **`else if` szerkezet – Több feltétel ellenőrzése**
-
-   ```javascript
-   let temperature = 30;
-
-   if (temperature > 30) {
-     console.log('Nagyon meleg van!');
-   } else if (temperature > 20) {
-     console.log('Kellemes idő van.');
-   } else if (temperature > 10) {
-     console.log('Hűvös van.');
-   } else {
-     console.log('Nagyon hideg van.');
-   }
-   ```
-
-### **3. Logikai műveletek az `if` szerkezetben**
-
-A logikai műveletek lehetővé teszik, hogy több feltételt is ellenőrizzünk egyszerre.
+✅ **`innerText` vs `textContent` különbsége:**  
+- `innerText` csak a látható szöveget mutatja.  
+- `textContent` minden szöveget visszaad, még a rejtetteket is.
 
 ---
 
-### **AND (`&&`) művelet – Mindkét feltételnek igaznak kell lennie**
-
-✅ **Csak akkor hajtódik végre az `if` blokk, ha MINDKÉT feltétel igaz.**
-
+#### **2. Példa – HTML elem lekérése különböző módokon**
 ```javascript
-let hasLicense = true;
-let isSober = true;
+// 🔹 ID alapján történő lekérés
+const elementById = document.getElementById('username');
+console.log('📋 ID alapján:', elementById.value);
 
-if (hasLicense && isSober) {
-  console.log('Vezethetsz autót.');
-} else {
-  console.log('Nem vezethetsz autót.');
-}
+// 🔹 `test-key` attribútum használata (ajánlott teszteléshez)
+const elementByTestKey = document.querySelector('[test-key="submit-button"]');
+console.log('✅ `test-key` alapján:', elementByTestKey);
+
+// 🔹 Név vagy egyéb attribútum alapján (NEM IDEÁLIS MÓDSZER)
+const elementByName = document.querySelector('input[name="email"]');
+console.log('⚠️ Név alapján (gyengébb szelektor):', elementByName.value);
 ```
 
-✅ **Eredmény:** `"Vezethetsz autót."`
+---
+
+### **III. Shadow DOM – Mi ez és miért fontos? (20 perc)**
+
+✅ A **Shadow DOM** egy különálló DOM-fában lévő elem, amely elszigetelt a fő DOM-tól.  
+✅ Egyes webalkalmazások fontos elemeit Shadow DOM-ban helyezik el a védelem és a szervezés miatt.  
+✅ A Shadow DOM tesztelése **bonyolultabb**, mert alapértelmezetten nem látható.
 
 ---
 
-**Példa AND művelet hibás esetére:**
-
+#### **1. Shadow DOM elérése – Példa**
 ```javascript
-let hasLicense = true;
-let isSober = false;
+// 🔹 Shadow DOM próbálkozás közvetlenül (NEM FOG MŰKÖDNI)
+const shadowHost = document.querySelector('.shadow-host');
+const shadowContentBefore = shadowHost.querySelector('div');
+console.log('🚫 Shadow DOM nyitás előtt:', shadowContentBefore); // NULL
 
-if (hasLicense && isSober) {
-  console.log('Vezethetsz autót.');
-} else {
-  console.log('Nem vezethetsz autót.');
-}
+// 🔹 Shadow DOM helyes módja (kinyitás után)
+const shadowRoot = shadowHost.shadowRoot;
+const shadowContentAfter = shadowRoot.querySelector('div');
+console.log('✅ Shadow DOM nyitás után:', shadowContentAfter.textContent);
 ```
 
-❌ **Eredmény:** `"Nem vezethetsz autót."`  
-➡️ A `&&` (AND) műveletnél ha bármelyik feltétel **hamis**, a teljes feltétel `false` lesz.
+---
+
+### **IV. Iframe-ek – Miért jelentenek problémát és hogyan kezeljük őket? (20 perc)**
+
+✅ Az **iframe** egy HTML dokumentum beágyazása egy másik dokumentumba.  
+✅ Biztonsági okokból a böngészők korlátozzák a különböző domainről származó iframe-ek tartalmának elérését (`cross-origin policy`).  
 
 ---
 
-### **OR (`||`) művelet – Legalább egy feltételnek igaznak kell lennie**
-
-✅ **Az `if` blokk akkor is lefut, ha csak az egyik feltétel igaz.**
-
+#### **1. Iframe kezelése – Példa**
 ```javascript
-let hasUmbrella = false;
-let hasRaincoat = true;
+// 🔹 Külső (cross-origin) iframe – NEM FOG MŰKÖDNI
+const externalIframe = document.querySelector('[test-key="external-iframe"]');
+externalIframe.addEventListener('load', () => {
+    try {
+        const iframeDocument = externalIframe.contentDocument || externalIframe.contentWindow.document;
+        console.log('🚫 Külső iframe tartalma (NEM ELÉRHETŐ):', iframeDocument.body.innerHTML);
+    } catch (error) {
+        console.log('❌ Külső iframe tartalma nem elérhető cross-origin policy miatt.');
+    }
+});
 
-if (hasUmbrella || hasRaincoat) {
-  console.log('Nem ázol meg.');
-} else {
-  console.log('Meg fogsz ázni.');
-}
+// 🔹 Belső iframe – ELÉRHETŐ
+const internalIframe = document.querySelector('[test-key="internal-iframe"]');
+internalIframe.addEventListener('load', () => {
+    const iframeDocument = internalIframe.contentDocument || internalIframe.contentWindow.document;
+    console.log('✅ Belső iframe tartalma:', iframeDocument.getElementById('iframe-text').textContent);
+});
 ```
 
-✅ **Eredmény:** `"Nem ázol meg."`
+---
+
+### **V. Event Listener-ek és Event Bubbling (30 perc)**
+
+✅ Az **Event Listener** egy olyan függvény, amely reagál egy felhasználói eseményre (pl. kattintás, űrlap beküldése).  
+✅ Az események felfelé (buborékolás) és lefelé (capture) is terjedhetnek a DOM-fán.  
 
 ---
 
-**Példa OR művelet hibás esetére:**
-
+#### **1. Alap Event Listener példa**
 ```javascript
-let hasUmbrella = false;
-let hasRaincoat = false;
+const button = document.querySelector('[test-key="submit-button"]');
 
-if (hasUmbrella || hasRaincoat) {
-  console.log('Nem ázol meg.');
-} else {
-  console.log('Meg fogsz ázni.');
-}
+button.addEventListener('click', () => {
+    console.log('✅ Gombra kattintottak!');
+});
 ```
 
-❌ **Eredmény:** `"Meg fogsz ázni."`  
-➡️ A `||` (OR) műveletnél csak akkor lesz a feltétel `false`, ha **mindkét feltétel hamis**.
-
 ---
 
-4. **`if` szerkezet rövidítése (`ternary operator`)**
+#### **2. Event Bubbling példa (Hogyan terjed felfelé?)**
+```html
+<div id="outer">
+  <div id="inner">
+    <button id="btn">Kattints rám!</button>
+  </div>
+</div>
+```
 
-   ```javascript
-   let score = 85;
-   let result = score >= 50 ? 'Sikeres vizsga' : 'Sikertelen vizsga';
-   console.log(result);
-   ```
+```javascript
+document.getElementById('outer').addEventListener('click', () => {
+    console.log('🔺 Külső div elkapta az eseményt!');
+});
 
-5. **Gyakorlati példa: Felhasználó adatbekérés és életkor ellenőrzés**
-   ```javascript
-   let age = prompt('Hány éves vagy?');
-   if (age >= 18) {
-     console.log('Beléphetsz.');
-   } else {
-     console.log('Sajnálom, nem léphetsz be.');
-   }
-   ```
+document.getElementById('inner').addEventListener('click', () => {
+    console.log('🔹 Belső div elkapta az eseményt!');
+});
 
----
+document.getElementById('btn').addEventListener('click', (event) => {
+    console.log('🟢 Gombra kattintottak!');
+    event.stopPropagation(); // Megállítja az esemény buborékolását
+});
+```
 
-### **IV. Szünet (15 perc)**
+✅ **Kimenet:**  
+```
+🟢 Gombra kattintottak!
+🔹 Belső div elkapta az eseményt!
+🔺 Külső div elkapta az eseményt!
+```
 
----
-
-### **V. Függvények – Alapok és példák**
-
-1. **Alapvető függvény létrehozása**
-
-   ```javascript
-   function greet(name) {
-     console.log(`Szia, ${name}!`);
-   }
-
-   greet('Anna'); // Kiírja: "Szia, Anna!"
-   greet('Péter'); // Kiírja: "Szia, Péter!"
-   ```
-
-2. **Visszatérési értékkel rendelkező függvény**
-
-   ```javascript
-   function add(a, b) {
-     return a + b;
-   }
-
-   let result = add(5, 3);
-   console.log('Összeg:', result); // Kiírja: "Összeg: 8"
-   ```
-
-3. **Függvény `if-else` szerkezettel**
-
-   ```javascript
-   function checkNumber(num) {
-     if (num > 0) {
-       return 'Pozitív szám';
-     } else if (num < 0) {
-       return 'Negatív szám';
-     } else {
-       return 'Nulla';
-     }
-   }
-
-   console.log(checkNumber(10)); // Pozitív szám
-   console.log(checkNumber(-5)); // Negatív szám
-   console.log(checkNumber(0)); // Nulla
-   ```
-
-4. **Függvény több paraméterrel**
-
-   ```javascript
-   function calculateArea(width, height) {
-     return width * height;
-   }
-
-   console.log('Terület:', calculateArea(5, 10)); // Terület: 50
-   ```
-
-5. **Függvény `default` értékkel**
-
-   ```javascript
-   function greet(name = 'vendég') {
-     console.log(`Szia, ${name}!`);
-   }
-
-   greet(); // Kiírja: "Szia, vendég!"
-   greet('Anna'); // Kiírja: "Szia, Anna!"
-   ```
-
----
-
-### **VI. Gyakorlófeladatok**
-
-✅ Írj egy függvényt, amely egy számot fogad paraméterként és visszatér:
-
-- `"Páros szám"` ha a szám páros.
-- `"Páratlan szám"` ha a szám páratlan.
-
-✅ Készíts egy függvényt, amely bekér egy nevet és egy életkort, majd visszatér az alábbi szöveggel:
-
-- `"Szia, [név]! Te [kor] éves vagy."`
-- **Tipp:** Használj template literal-t (` `).
-
-✅ Készíts egy függvényt, amely bekér egy vizsga pontszámot és visszatér az eredménnyel:
-
-- `"Kiváló"` (90 felett)
-- `"Jó"` (70–89 között)
-- `"Megfelelt"` (50–69 között)
-- `"Elégtelen"` (50 alatt)
-
----
-
-### **VII. Összefoglalás és Zárás**
-
-- Ismételd át a legfontosabb fogalmakat:  
-  ✅ `if-else` szerkezet és logikai műveletek  
-  ✅ Függvények létrehozása, paraméterezése és visszatérési értéke  
-  ✅ Gyakorlati példák megbeszélése
-
-### **VIII. Házi feladat**
-
----
-
-### **Feladat leírás**
-
----
-
-### **1. Felhasználói adatbekérés (Prompt)**
-
-- Kérdezd meg a felhasználótól a nevét.
-- Kérdezd meg tőle, hogy hány terméket szeretne vásárolni.
-
----
-
-### **2. Termékadatok tárolása (Object)**
-
-- Hozz létre egy `products` nevű objektumot, amely tartalmaz **legalább 3 terméket**.
-- Minden terméknek legyen:
-  - **`name`** – A termék neve (string)
-  - **`price`** – A termék ára (number)
-  - **`inStock`** – Boolean érték (`true` = raktáron van, `false` = nincs raktáron)
-
----
-
-### **3. Függvény készítése**
-
-- Írj egy függvényt `calculateTotal` néven, amely:
-  - Bemenetként kap egy **terméket** és egy **darabszámot**.
-  - Ha a termék **elérhető** (`inStock`), számolja ki a teljes árat.
-  - Ha a termék **nincs raktáron**, írja ki:
-  - "Sajnáljuk, a termék nincs készleten."
-
----
-
-### **4. Vásárlási folyamat logikája**
-
-- Ha a felhasználó **0 terméket** szeretne vásárolni, írja ki:
-- "Nincs mit számolni."
-
----
-
-- Ha több mint **0 terméket** akar vásárolni:
-  - Kérdezze meg, hogy **melyik terméket szeretné** (pl. `"Alma"`, `"Banán"`, `"Narancs"`).
-  - Ellenőrizze, hogy a megadott termék szerepel-e a listában.
-  - Ha igen, számolja ki az árat a megadott darabszám alapján.
-
----
-
-### **5. Végső üzenet**
-
-- Írja ki a felhasználó nevével együtt az összesítést, például:
-- "Anna, a végösszeged 3000 Ft."
+## 🚀 **Cél:** A résztvevők képesek legyenek hatékonyan kezelni HTML elemeket, iframe-eket és Shadow DOM-okat tesztelési környezetben.

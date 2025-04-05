@@ -2,10 +2,160 @@
 <html lang="hu">
 <head>
     <meta charset="UTF-8">
-    <title>JavaScript Példa</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Példa Teszteléshez</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #0078FF;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border: 2px solid #0078FF;
+            border-radius: 8px;
+        }
+
+        input, select, .btn {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .btn {
+            background-color: #4CAF50;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        .random-div {
+            background-color: #0078FF;
+            color: #fff;
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 4px;
+        }
+
+        .shadow-host {
+            margin-top: 20px;
+            padding: 10px;
+            border: 2px solid #0078FF;
+            background-color: #E3F2FD;
+        }
+
+        iframe {
+            width: 100%;
+            height: 200px;
+            border: 2px solid #0078FF;
+            border-radius: 4px;
+        }
+    </style>
 </head>
 <body>
-    <h1>JavaScript Teszt</h1>
-    <script src="webshop.js"></script>
+    <h1>HTML Példa Teszteléshez</h1>
+
+    <!-- Form Példa -->
+    <form id="userForm">
+        <label for="username">Név:</label>
+        <input type="text" id="username" name="username" placeholder="Add meg a neved...">
+
+        <label for="email">Email cím:</label>
+        <input type="email" name="email" placeholder="Add meg az email címed...">
+
+        <label for="age">Életkor:</label>
+        <input type="number" name="age" placeholder="Add meg az életkorod...">
+
+        <!-- Dropdown -->
+        <label for="country">Ország:</label>
+        <select id="country" name="country">
+            <option value="HU">Magyarország</option>
+            <option value="DE">Németország</option>
+            <option value="US">Amerikai Egyesült Államok</option>
+        </select>
+
+        <!-- Radio button -->
+        <label>Nem:</label>
+        <input type="radio" id="male" name="gender" value="male"> Férfi
+        <input type="radio" id="female" name="gender" value="female"> Nő
+        <input type="radio" name="gender" value="other"> Egyéb
+
+        <button type="submit" class="btn" test-key="submit-button">Elküldés</button>
+    </form>
+
+    <!-- Olyan elem, amelynek nincs ID-ja -->
+    <div class="random-div">
+        Ez egy div, amihoz nincs egyedi azonosító.
+    </div>
+
+    <!-- Teszteléshez külön `test-key` attribútum -->
+    <div test-key="important-element">
+        Ez az elem `test-key` attribútummal rendelkezik.
+    </div>
+
+    <!-- Shadow DOM elem -->
+    <div class="shadow-host" id="shadow-host">
+        <h2>Shadow DOM Példa</h2>
+    </div>
+
+    <!-- Iframe Példa -->
+    <h1>Iframe Példa - Külső és Belső Tartalom</h1>
+
+    <!-- Külső iframe (cross-origin) -->
+    <h2>Külső iframe (NEM ELÉRHETŐ)</h2>
+    <iframe 
+        src="https://example.com" 
+        title="Külső Iframe"
+        test-key="external-iframe">
+    </iframe>
+
+    <!-- Belső iframe (ELÉRHETŐ) -->
+    <h2>Belső iframe (ELÉRHETŐ)</h2>
+    <iframe 
+        src="inner.html" 
+        title="Belső Iframe"
+        test-key="internal-iframe">
+    </iframe>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Shadow DOM létrehozása
+            const shadowHost = document.getElementById('shadow-host');
+            const shadowRoot = shadowHost.attachShadow({ mode: 'open' });
+            shadowRoot.innerHTML = `
+                <div style="padding: 10px; background-color: #4CAF50; color: #fff;">
+                    Ez egy Shadow DOM-ban lévő elem.
+                </div>
+            `;
+
+            // Form elküldés kezelése
+            document.getElementById('userForm').addEventListener('submit', (event) => {
+                event.preventDefault();
+
+                const username = document.getElementById('username').value;
+                const country = document.getElementById('country').value;
+                const selectedGender = document.querySelector('input[name="gender"]:checked')?.value;
+
+                console.log(`Név: ${username}`);
+                console.log(`Ország: ${country}`);
+                console.log(`Nem: ${selectedGender || 'Nincs kiválasztva'}`);
+            });
+        });
+    </script>
+
+    <script src="example.js"></script>
 </body>
 </html>
