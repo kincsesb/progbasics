@@ -2,6 +2,9 @@
 
 const prompt = require('prompt-sync')();
 
+//Ne használj var-t semmiképp! Vagy let vagy const. 
+//Ebben a kontextusban minden lehetne const mert semmit se változtatsz rajtuk!
+//Ugyan ez igaz a filmekre is.
 var username = prompt("Mi a neved gyermekem?");
 console.log(`Szia, ${username}!`);
 
@@ -52,4 +55,12 @@ var fifthFilm = {
 }
 
 var movies = [firstFilm, secondFilm, thirdFilm, fourthFilm, fifthFilm ];
+
+//Ez eléggé low hanging fruit megoldás :D 
+//Mármint a logolás
+
+//Az volt a feladat hogy a részleteket logold ki.
+//title, director, release year, isMovie, episodeCoutn
+//Mivel már vettük a for-loopokat nyugodtan kilogolhatod őket for ciklussal!
+
 console.log("Mozi lista:", movies);
